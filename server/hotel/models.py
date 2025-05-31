@@ -24,6 +24,9 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()
+    guests = models.IntegerField(default=1)
+    rooms = models.IntegerField(default=1)  # Add this line
+    timestamp = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     STATUS_CHOICES = [
@@ -33,10 +36,9 @@ class Booking(models.Model):
     ]
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
-     
     def __str__(self):
         return f"Booking for {self.customer_name} - Room {self.room.room_number}"
-    
+
 class Customer(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField(unique=True)
@@ -45,3 +47,14 @@ class Customer(models.Model):
     
     def __str__(self):
         return self.name        
+    
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    query_type = models.CharField(max_length=100)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.query_type}" 
+
