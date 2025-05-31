@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const images = [
-  "/images/hotel-bg1.jpg",
-  "/images/hotel-bg2.jpg",
-  "/images/hotel-bg3.jpg",
-  "/images/hotel-bg4.jpg"
+  process.env.PUBLIC_URL + "/images/hotel-bg1.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg2.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg3.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg4.jpg"
 ];
 
 const LandingPage = () => {

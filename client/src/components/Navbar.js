@@ -9,35 +9,59 @@ const Navbar = () => {
   return (
     <motion.nav
       className="fixed top-0 left-0 w-full backdrop-blur-md bg-white/30 dark:bg-gray-900 text-white p-4 flex justify-between items-center shadow-md z-50"
-      initial={{ opacity: 0, y: -50 }} 
-      animate={{ opacity: 1, y: 0 }}   
-      transition={{ duration: 0.8 }}   
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
     >
       <div className="flex items-center space-x-3">
-        <img 
-          src="/images/hotel_logo.png" 
-          alt="Hotel Logo" 
-          className="h-12 object-contain" 
+        <img
+          src={`${process.env.PUBLIC_URL}/images/hotel_logo.png`}
+          alt="Hotel Logo"
+          className="h-12 object-contain"
         />
         <h1 className="text-2xl font-bold text-blue-900 dark:text-white drop-shadow-lg">
           The Regal Haven
         </h1>
       </div>
       <div className="space-x-6">
-        <a href="/" className={`text-lg font-semibold transition duration-300 
-          ${theme === "light" ? "text-blue-900 hover:text-black" : "text-white hover:text-yellow-400"}`}>
+        <a
+          href="/"
+          className={`text-lg font-semibold transition duration-300 ${
+            theme === "light"
+              ? "text-blue-900 hover:text-black"
+              : "text-white hover:text-yellow-400"
+          }`}
+        >
           Home
         </a>
-        <a href="/rooms" className={`text-lg font-semibold transition duration-300 
-          ${theme === "light" ? "text-blue-900 hover:text-black" : "text-white hover:text-yellow-400"}`}>
+        <a
+          href="/rooms"
+          className={`text-lg font-semibold transition duration-300 ${
+            theme === "light"
+              ? "text-blue-900 hover:text-black"
+              : "text-white hover:text-yellow-400"
+          }`}
+        >
           Rooms
         </a>
-        <a href="/bookings" className={`text-lg font-semibold transition duration-300 
-          ${theme === "light" ? "text-blue-900 hover:text-black" : "text-white hover:text-yellow-400"}`}>
+        <a
+          href="/bookings"
+          className={`text-lg font-semibold transition duration-300 ${
+            theme === "light"
+              ? "text-blue-900 hover:text-black"
+              : "text-white hover:text-yellow-400"
+          }`}
+        >
           Bookings
         </a>
-        <a href="/contact" className={`text-lg font-semibold transition duration-300 
-          ${theme === "light" ? "text-blue-900 hover:text-black" : "text-white hover:text-yellow-400"}`}>
+        <a
+          href="/contact"
+          className={`text-lg font-semibold transition duration-300 ${
+            theme === "light"
+              ? "text-blue-900 hover:text-black"
+              : "text-white hover:text-yellow-400"
+          }`}
+        >
           Contact
         </a>
         <button

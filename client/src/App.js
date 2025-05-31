@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Rooms from "./pages/Rooms";
 import UserDashboard from "./pages/UserDashboard"; 
 import ContactUs from "./pages/ContactUs";
+import BookRoom from "./pages/BookRoom";
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="/rooms" element={<Rooms />} />
               <Route path="/contact" element={<ContactUs />} /> 
               <Route path="/dashboard" element={<UserDashboard />} />
+              <Route path="/book-room" element={<BookRoom />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>

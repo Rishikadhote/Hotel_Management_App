@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
+import { FiChevronDown } from "react-icons/fi";
 import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const Contact = () => {
   const backgrounds = [
-    "/images/hotel-bg1.jpg",
-    "/images/hotel-bg2.jpg",
-    "/images/hotel-bg3.jpg",
-    "/images/hotel-bg4.jpg",
+    process.env.PUBLIC_URL + "/images/hotel-bg1.jpg",
+    process.env.PUBLIC_URL + "/images/hotel-bg2.jpg",
+    process.env.PUBLIC_URL + "/images/hotel-bg3.jpg",
+    process.env.PUBLIC_URL + "/images/hotel-bg4.jpg"
   ];
 
   const [bgIndex, setBgIndex] = useState(0);
@@ -70,14 +71,28 @@ const ContactForm = () => {
     setMessage("");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+  const response = await fetch("http://localhost:8000/api/contact/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+  name: formData.name,
+  email: formData.email,
+  query_type: formData.queryType,   
+  message: formData.message,
+}),
+  });
 
-      setMessage(" Message sent successfully!");
-      setFormData({ name: "", email: "", queryType: "General Inquiry", message: "" });
-      setErrors({});
-    } catch (error) {
-      setMessage(" Failed to send message. Try again!");
-    }
+  if (!response.ok) throw new Error("Network response was not ok");
+
+  setMessage("Message sent successfully!");
+  setFormData({ name: "", email: "", queryType: "General Inquiry", message: "" });
+  setErrors({});
+} catch (error) {
+  setMessage("Failed to send message. Try again!");
+}
+
 
     setLoading(false);
   };
@@ -91,17 +106,7 @@ const ContactForm = () => {
     >
       <h2 className="text-3xl text-white font-bold text-center mb-4">Contact Us</h2>
 
-      {message && (
-        <motion.p
-          className={`text-center text-lg font-semibold ${
-            message.includes(".") ? "text-green-400" : "text-red-400"
-          }`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          {message}
-        </motion.p>
-      )}
+      
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -140,6 +145,7 @@ const ContactForm = () => {
             <option className="text-black bg-white" value="Support">General Support</option>
             <option className="text-black bg-white" value="Other">Other Inquiry</option>
           </select>
+          <FiChevronDown className="absolute right-8 top-1/2 transform -translate-y-[99%] text-white pointer-events-none" size={25}/>
         </div>
 
         <div>
@@ -172,6 +178,19 @@ const ContactForm = () => {
           )}
         </motion.button>
       </form>
+
+{message && (
+        <motion.p
+          className={`mt-4 p-3 rounded-md text-center text-white border shadow-md ${
+      message.includes("successfully")
+        ? "border-green-400 bg-green-500/10"
+        : "border-blue-400 bg-blue-500/10"
+    }`}
+        >
+          {message}
+        </motion.p>
+      )}
+
     </motion.div>
   );
 };

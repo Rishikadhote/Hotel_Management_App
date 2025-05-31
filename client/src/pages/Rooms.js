@@ -1,24 +1,18 @@
+// src/pages/Rooms.js
+
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { FaBed, FaRupeeSign } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate } from "react-router-dom";
 import RoomImage from "../components/RoomImage";
 
 const roomBackgrounds = [
-  "/images/hotel-bg1.jpg",
-  "/images/hotel-bg2.jpg",
-  "/images/hotel-bg3.jpg",
-  "/images/hotel-bg4.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg1.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg2.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg3.jpg",
+  process.env.PUBLIC_URL + "/images/hotel-bg4.jpg"
 ];
-
-const defaultRoom = {
-  id: 0,
-  room_type: "Deluxe Suite",
-  room_number: "101",
-  price_per_night: 5000,
-  is_available: true,
-};
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -26,21 +20,19 @@ const Rooms = () => {
   const [loading, setLoading] = useState(false);
   const [currentBg, setCurrentBg] = useState(roomBackgrounds[0]);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRooms = async () => {
       setLoading(true);
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/rooms/");
-        console.log(" Rooms fetched:", response.data);
-        const filteredRooms = response.data.map((room) => ({
-          ...defaultRoom, 
-        }));
+        console.log("Rooms fetched:", response.data);
 
-        setRooms(filteredRooms);
+        // ✅ Use actual room data instead of default
+        setRooms(response.data);
       } catch (error) {
-        console.error(" Error fetching rooms:", error);
+        console.error("Error fetching rooms:", error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -48,6 +40,7 @@ const Rooms = () => {
     };
     fetchRooms();
   }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBg((prevBg) => {
@@ -59,15 +52,15 @@ const Rooms = () => {
 
     return () => clearInterval(interval);
   }, []);
+
   const handleBookNow = (room) => {
-    const roomData = room || defaultRoom;
-    navigate("/bookings", { state: { room: roomData } });
+    navigate("/bookings", { state: { room } });
   };
 
   if (loading) {
     return (
       <div className="container mx-auto p-8 text-center mt-28">
-        <h2 className="text-4xl font-bold text-gray-800 mb-8"> Available Rooms</h2>
+        <h2 className="text-4xl font-bold text-gray-800 mb-8">Available Rooms</h2>
         <p className="text-gray-600">Loading...</p>
       </div>
     );
@@ -76,7 +69,7 @@ const Rooms = () => {
   if (error) {
     return (
       <div className="container mx-auto p-8 text-center mt-28">
-        <h2 className="text-4xl font-bold text-gray-800 mb-8"> Available Rooms</h2>
+        <h2 className="text-4xl font-bold text-gray-800 mb-8">Available Rooms</h2>
         <p className="text-red-500">Error: {error}</p>
       </div>
     );
@@ -96,7 +89,7 @@ const Rooms = () => {
               className="relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-transform hover:scale-105 bg-white bg-opacity-20 backdrop-blur-md p-6"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-full h- flex justify-center p-2 border-4 border-white rounded-lg">
+              <div className="w-full h-64 flex justify-center p-2 border-4 border-white rounded-lg">
                 <RoomImage query={room.room_type} />
               </div>
               <div className="absolute bottom-4 left-4 p-3 rounded-md bg-white bg-opacity-80 shadow-md">
