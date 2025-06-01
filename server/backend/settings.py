@@ -71,11 +71,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER' : os.getenv('DB_USER'),
-        'PASSWORD' : os.getenv('DB_PASSWORD'),
-        'HOST' : os.getenv('DB_HOST'),
-        'PORT' : os.getenv('DB_PORT', '3306'),
+        'NAME': 'if0_39132359_hotel_db',
+        'USER' : 'if0_39132359',
+        'PASSWORD' : 'X4nPEv6AOhjd',
+        'HOST' : 'sql213.infinityfree.com',
+        'PORT' :'3306',
     }
 }
 
