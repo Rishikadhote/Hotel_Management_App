@@ -70,12 +70,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('django.db.backends.mysql'),
-        'NAME': os.getenv('hotel_db'),
-        'USER' : os.getenv('root'),
-        'PASSWORD' : os.getenv('Shanker@0012'),
-        'HOST' : os.getenv('127.0.0.1'),
-        'PORT' : os.getenv('3306'),
+        'ENGINE':'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER' : os.getenv('DB_USER'),
+        'PASSWORD' : os.getenv('DB_PASSWORD'),
+        'HOST' : os.getenv('DB_HOST'),
+        'PORT' : os.getenv('DB_PORT', '3306'),
     }
 }
 
