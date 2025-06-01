@@ -1,5 +1,6 @@
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,9 +13,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6j6h0fcm*q#pm8)fzb)n*=@br1qg(3q946co05(wv)%ubt#nf_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = ['hotel-management-app-9js6.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 
 # Application definition
@@ -69,12 +70,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hotel_db',
-        'USER' : 'root',
-        'PASSWORD' : 'Shanker@0012',
-        'HOST' : '127.0.0.1',
-        'PORT' : '3306',
+        'ENGINE': os.getenv('django.db.backends.mysql'),
+        'NAME': os.getenv('hotel_db'),
+        'USER' : os.getenv('root'),
+        'PASSWORD' : os.getenv('Shanker@0012'),
+        'HOST' : os.getenv('127.0.0.1'),
+        'PORT' : os.getenv('3306'),
     }
 }
 
